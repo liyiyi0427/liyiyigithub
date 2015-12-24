@@ -1,0 +1,58 @@
+package ${packagename}.dao;
+
+import java.io.Serializable;
+import java.util.List;
+import java.util.Map;
+
+import ${packagename}.po.${doname}PO;
+
+/**
+ * ${comments.get( $tablename)} 
+ * @author codegen ${dateTime} 
+ */
+public interface ${doname}Dao{
+
+	/**
+	 * 查找单个 
+	 * @param id 
+	 * @return ${doname} 
+	 */
+	public ${doname}PO find(Serializable id);
+
+	/**
+	 * 查找所有 
+	 * @return List<${doname}PO> 
+	 */
+	public List<${doname}PO> findAll();
+
+	/**
+	 * 创建 
+	 * @param po 
+	 */
+	public void create(${doname}PO po);
+
+	/**
+	 * 修改 
+	 * @param po 
+	 */
+	public void update(${doname}PO po);
+
+	/**
+	 * 删除 
+	 * @param id 
+	 */
+	public void delete(Serializable id);
+	
+	/**
+	 * 查找所有 
+	 * 注此方法后台用
+	 */
+	public List<${doname}PO> listForPage(Map<String, Object> conds);
+	
+	/**
+	 * 组删除 
+	 * @param id 
+	 */
+	public void deletes(Serializable[] id);
+
+}

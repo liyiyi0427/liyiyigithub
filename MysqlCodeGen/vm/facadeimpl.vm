@@ -1,0 +1,25 @@
+package ds.${sys}.facade.${menugrp};
+
+import org.springframework.stereotype.Service;
+
+import ds.DSException;
+#foreach($step in $firstuppersteps)
+import ds.${sys}.${menugrp}.${menulowercase}.${step}Dto;
+#end
+
+@Service("${lmenu}Facade")
+public class ${menu}FacadeImpl implements ${menu}Facade {
+
+
+#set($i = -1)
+#foreach($step in $steps)
+#set($i=$i+1)
+
+	@Override
+	public void ${step}(${firstuppersteps.get($i)}Dto dto) throws DSException {
+
+	}
+#end
+
+
+}

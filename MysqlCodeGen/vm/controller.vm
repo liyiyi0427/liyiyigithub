@@ -1,0 +1,123 @@
+package ${packagename.replace('cn.club.biz','cn.club.boss')}.controller;
+
+
+import javax.annotation.Resource;
+import java.util.Map;
+import org.apache.commons.beanutils.BeanUtils;
+import org.apache.log4j.Logger;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import ${packagename}.po.${doname}PO;
+import ${packagename.replace('cn.club.biz','cn.club.boss')}.vo.${doname}VO;
+import ${packagename}.service.${doname}Service;
+import cn.synny.common.core.page.Model;
+import cn.synny.common.core.page.Page;
+
+@Controller
+@RequestMapping("$url.replace("/cn/vulcan/biz","")")
+public class ${doname}Controller {
+
+	private static final Logger log =Logger.getLogger(${doname}Controller.class);
+	@Resource
+	private  ${doname}Service  ${doname_uncapital}Service;
+
+    /**
+	 * ${tablename} 列表视图
+	 * @return
+	 */
+	@RequestMapping(value = "/list", method = RequestMethod.GET)
+	public String list${doname}View() {
+		log.debug("request page: /sysset/${doname_uncapital}/${doname_uncapital}_list");
+		return "sysset/${doname_uncapital}/${doname_uncapital}_list";
+	}
+	/**
+	 * ${tablename} 列表数据
+	 * @param reqs
+	 * @param page
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/list", method = RequestMethod.POST)
+	public Model list${doname}Actoin(@RequestParam Map<String, Object> reqs, Page<${doname}PO> page) {
+		log.debug("request data: list${doname}");
+		Model model = new Model();
+		try {
+			${doname_uncapital}Service.listForPage(reqs, page);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		model.setPage(page);
+		return model;
+	}
+
+	/**
+	 * ${tablename} 添加
+	 * 
+	 * @param ${doname_uncapital}VO
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/add", method = RequestMethod.POST)
+	public Model add${doname}Actoin(${doname}VO ${doname_uncapital}VO) {
+		Model model = new Model();
+		model.set("msg", "true");
+		try {
+			${doname}PO ${doname_uncapital}PO = new ${doname}PO();
+			BeanUtils.copyProperties(${doname_uncapital}PO, ${doname_uncapital}VO);
+			${doname_uncapital}Service.create(${doname_uncapital}PO);
+		} catch (Exception e) {
+			e.printStackTrace();
+			model.set("msg", "false");
+		}
+		return model;
+	}
+
+	/**
+	 * ${tablename} 修改
+	 * 
+	 * @param ${doname_uncapital}VO
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/update", method = RequestMethod.POST)
+	public Model update${doname}Actoin(${doname}VO ${doname_uncapital}VO) {
+		Model model = new Model();
+		model.set("msg", "true");
+		try {
+			${doname}PO ${doname_uncapital}PO = new ${doname}PO();
+			BeanUtils.copyProperties(${doname_uncapital}PO, ${doname_uncapital}VO);
+			${doname_uncapital}Service.update(${doname_uncapital}PO);
+		} catch (Exception e) {
+			e.printStackTrace();
+			model.set("msg", "false");
+		}
+		return model;
+	}
+
+	/**
+	 * ${tablename} 删除
+	 * 
+	 * @param ${doname_uncapital}Ids
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/del", method = RequestMethod.POST, produces = "application/json")
+	public Model del${doname}Action(@RequestParam("${doname_uncapital}Ids") String ${doname_uncapital}Ids) {
+		Model model = new Model();
+		model.set("msg", "true");
+		try {
+			${doname_uncapital}Service.deletes(${doname_uncapital}Ids.split(","));
+		} catch (Exception e) {
+			e.printStackTrace();
+			model.set("msg", "false");
+		}
+		return model;
+	}
+
+
+}

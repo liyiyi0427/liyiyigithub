@@ -1,0 +1,50 @@
+package ${packagename.replace('cn.club.biz','cn.club.boss')}.vo;
+
+import java.io.Serializable;
+import java.util.Date;
+
+
+/**
+ * ${comments.get( $tablename)} 
+ * @author codegen ${dateTime} 
+ */
+public class ${doname}VO {
+
+#foreach($pk in $pks)
+	/** ${comments.get( $pk)} **/ 
+	private ${types1.get( ${types.get( $pk)})} ${properties.get( $pk)};
+	
+#end
+#foreach($column in $columns)
+    /** ${comments.get( $column)} **/ 
+	private ${types1.get( ${types.get( $column)})} ${properties.get( $column)};
+	
+#end
+
+	/**
+	 * 构造 
+	 */
+	public ${doname}VO() {
+	}
+	
+#foreach($pk in $pks)
+	public ${types1.get( ${types.get( $pk)})} get${properties2.get( $pk)}() {
+		return ${properties.get( $pk)};
+	}
+
+	public void set${properties2.get( $pk)}(${types1.get( ${types.get( $pk)})} ${properties.get( $pk)}) {
+		this.${properties.get( $pk)} = ${properties.get( $pk)};
+	}
+#end
+
+#foreach($column in $columns)
+	public ${types1.get( ${types.get( $column)})} get${properties2.get( $column)}() {
+		return ${properties.get( $column)};
+	}
+
+	public void set${properties2.get( $column)}(${types1.get( ${types.get( $column)})} ${properties.get( $column)}) {
+		this.${properties.get( $column)} = ${properties.get( $column)};
+	}
+#end
+
+}

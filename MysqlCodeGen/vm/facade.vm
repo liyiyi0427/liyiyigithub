@@ -1,0 +1,18 @@
+package ds.${sys}.facade.${menugrp};
+
+import ds.DSException;
+#foreach($step in $firstuppersteps)
+import ds.${sys}.${menugrp}.${menulowercase}.${step}Dto;
+#end
+
+public interface ${menu}Facade {
+
+#set($i = -1)
+#foreach($step in $steps)
+#set($i=$i+1)
+
+	public void ${step}(${firstuppersteps.get($i)}Dto dto) throws DSException;
+#end
+
+
+}

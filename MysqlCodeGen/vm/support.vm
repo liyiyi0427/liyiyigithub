@@ -1,0 +1,30 @@
+package ${packagename}.controller;
+
+import java.io.Serializable;
+import java.util.List;
+import java.util.Date;
+
+import javax.annotation.Resource;
+
+import org.apache.log4j.Logger;
+import org.springframework.stereotype.Service;
+
+import cn.dev.exception.AppException;
+
+
+import ${packagename}.po.${doname}PO;
+import ${packagename}.vo.${doname}VO;
+import ${packagename}.dao.${doname}Dao;
+import ${packagename}.service.${doname}Service;
+
+@Service
+public class ${doname}ControllerSupport {
+
+	private static final Logger log =Logger.getLogger(${doname}ControllerSupport.class);
+	@Resource
+	private  ${doname}Service  ${doname_uncapital}Service;
+	
+
+
+
+}

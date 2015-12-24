@@ -1,0 +1,11 @@
+package ds.${sys}.${menugrp}.${menulowercase};
+
+
+/**
+ * ${comments.get( $tablename)} 
+ * @author codegen ${dateTime} 
+ */
+public class ${menustep}Dto {
+
+
+}

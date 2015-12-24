@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN" 
+"http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+<mapper namespace="com.tanlijuan.dao.ShoppingDao" >
+	
+  <resultMap id="BaseResultMap" type="com.tanlijuan.po.ShoppingPO" >
+	<result column="id" property="id" />
+	<result column="num" property="num" />
+	<result column="goodsid" property="goodsid" />
+	<result column="userid" property="userid" />
+  </resultMap>
+  
+  <select id="find" resultMap="BaseResultMap" parameterType="String" >
+    select id,num,goodsid,userid
+    from shopping
+    where
+			id = #{ id}
+	  </select>
+  
+  <select id="findAll" resultMap="BaseResultMap" >
+    select id,num,goodsid,userid
+    from shopping
+  </select>
+  
+  <delete id="delete" parameterType="String" >
+    delete from shopping
+    where 
+			id = #{ id}
+	  </delete>
+  
+  <insert id="create" parameterType="com.tanlijuan.po.ShoppingPO" >
+    insert into shopping (id,num,goodsid,userid)
+    values (
+			#{ id, javaType=int, jdbcType=INTEGER},
+				#{ num, javaType=int, jdbcType=INTEGER},
+				#{ goodsid, javaType=int, jdbcType=INTEGER},
+				#{ userid, javaType=int, jdbcType=INTEGER}
+	    )
+  </insert>
+
+  <update id="update" parameterType="com.tanlijuan.po.ShoppingPO" >
+    update shopping
+    set
+			num = #{ num, javaType=int, jdbcType=INTEGER},
+				goodsid = #{ goodsid, javaType=int, jdbcType=INTEGER},
+				userid = #{ userid, javaType=int, jdbcType=INTEGER}
+	    where 
+			id = #{ id}
+	  </update>
+
+ <select id="listForPage" resultMap="BaseResultMap"  parameterType="hashmap">
+    select id,num,goodsid,userid
+    from shopping
+  </select>
+
+
+<delete id="deletes">
+		delete from shopping
+		where id in
+		<foreach collection="array" index="index" item="item" open="("
+			separator="," close=")">
+			#{item}   
+	    </foreach>
+	</delete>
+
+
+<!--codegen-->
+
+</mapper>

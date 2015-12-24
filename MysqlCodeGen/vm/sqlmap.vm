@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN" 
+"http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+<mapper namespace="${packagename}.dao.${doname}Dao" >
+	
+  <resultMap id="BaseResultMap" type="${packagename}.po.${doname}PO" >
+#foreach($pk in $pks)
+	<result column="${pk}" property="${properties.get( $pk)}" />
+#end
+#foreach($column in $columns)
+	<result column="${column}" property="${properties.get( $column)}" />
+#end 
+  </resultMap>
+  
+  <select id="find" resultMap="BaseResultMap" parameterType="String" >
+    select ${columns2}
+    from ${tablename}
+    where
+#set($i=0)
+#foreach($pk in $pks)
+	#if( $i+1 == $pks.size())
+		$pk = #{ ${properties.get( $pk)}}
+	#else
+		$pk = #{ ${properties.get( $pk)}} and
+	#end
+	#set($i=$i+1)
+#end    
+  </select>
+  
+  <select id="findAll" resultMap="BaseResultMap" >
+    select ${columns2}
+    from ${tablename}
+  </select>
+  
+  <delete id="delete" parameterType="String" >
+    delete from ${tablename}
+    where 
+#set($i=0) 
+#foreach($pk in $pks)
+	#if($i+1 == $pks.size())
+		$pk = #{ ${properties.get( $pk)}}
+	#else
+		$pk = #{ ${properties.get( $pk)}} and
+	#end
+	#set($i=$i+1)
+#end  
+  </delete>
+  
+  <insert id="create" parameterType="${packagename}.po.${doname}PO" >
+    insert into ${tablename} (${columns2})
+    values (
+#set($i=0)    
+#foreach($column in $columns1)
+	#if($i+1 == $columns1.size())
+		#{ ${properties.get( $column)}, javaType=${types1.get( ${types.get( $column)})}, jdbcType=${types2.get( $column)}}
+	#else
+		#{ ${properties.get( $column)}, javaType=${types1.get( ${types.get( $column)})}, jdbcType=${types2.get( $column)}},
+	#end
+	#set($i=$i+1)
+#end
+    )
+  </insert>
+
+#if(0 == $columns.size())
+#else 
+  <update id="update" parameterType="${packagename}.po.${doname}PO" >
+    update ${tablename}
+    set
+#set($i=0)
+#foreach($column in $columns)
+	#if($i+1 == $columns.size())
+		$column = #{ ${properties.get( $column)}, javaType=${types1.get( ${types.get( $column)})}, jdbcType=${types2.get( $column)}}
+	#else
+		$column = #{ ${properties.get( $column)}, javaType=${types1.get( ${types.get( $column)})}, jdbcType=${types2.get( $column)}},
+	#end
+	#set($i=$i+1)
+#end
+    where 
+#set($i=0) 
+#foreach($pk in $pks)
+	#if($i+1 == $pks.size())
+		$pk = #{ ${properties.get( $pk)}}
+	#else
+		$pk = #{ ${properties.get( $pk)}} and
+	#end
+	#set($i=$i+1)
+#end  
+  </update>
+#end
+
+ <select id="listForPage" resultMap="BaseResultMap"  parameterType="hashmap">
+    select ${columns2}
+    from ${tablename}
+  </select>
+
+
+<delete id="deletes">
+		delete from ${tablename}
+		where id in
+		<foreach collection="array" index="index" item="item" open="("
+			separator="," close=")">
+			#{item}   
+	    </foreach>
+	</delete>
+
+
+<!--codegen-->
+
+</mapper>

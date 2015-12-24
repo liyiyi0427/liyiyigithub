@@ -1,0 +1,91 @@
+package ${packagename}.service.impl;
+
+import java.io.Serializable;
+import java.util.List;
+import java.util.Date;
+import java.util.Map;
+
+import javax.annotation.Resource;
+import org.springframework.transaction.annotation.Transactional;
+import org.apache.log4j.Logger;
+import org.springframework.stereotype.Service;
+import cn.synny.common.core.page.Page;;
+
+
+import ${packagename}.po.${doname}PO;
+import ${packagename}.dao.${doname}Dao;
+import ${packagename}.service.${doname}Service;
+
+@Service
+public class ${doname}ServiceImpl implements ${doname}Service {
+
+	private static final Logger log =Logger.getLogger(${doname}ServiceImpl.class);
+	
+	@Resource
+	private  ${doname}Dao  ${doname_uncapital}Dao;
+	
+
+	/**
+	 * 查找单个 
+	 * @param id 
+	 * @return ${doname} 
+	 */
+	public ${doname}PO find(Serializable id){
+		return ${doname_uncapital}Dao.find(id);	
+	}
+
+	/**
+	 * 查找所有 
+	 * @return List<${doname}PO> 
+	 */
+	public List<${doname}PO> findAll(){
+		return ${doname_uncapital}Dao.findAll();	
+	}
+
+	/**
+	 * 创建 
+	 * @param po 
+	 */
+	public void create(${doname}PO po) throws Exception{
+		
+			if( po != null )
+				 ${doname_uncapital}Dao.create(po);
+	}
+
+	/**
+	 * 修改 
+	 * @param po
+	 */
+	public void update(${doname}PO po) throws Exception{
+
+			if( po != null )
+				 ${doname_uncapital}Dao.update(po);
+
+	}
+
+	/**
+	 * 删除 
+	 * @param id 
+	 */
+	public void delete(Serializable id) throws Exception{
+		 ${doname_uncapital}Dao.delete(id);
+	}
+
+	/**
+	 * 删除 
+	 * @param id 
+	 */
+	public void deletes(Serializable[] id) throws Exception{
+		${doname_uncapital}Dao.deletes(id);
+	}
+	
+	@Override
+	public void listForPage(Map<String, Object> conds, Page<${doname}PO> page) {
+		page.setEntityOrField(true);
+		conds.put("page", page);
+		List<${doname}PO> list = ${doname_uncapital}Dao.listForPage(conds);
+		page.setList(list);
+	}
+
+
+}

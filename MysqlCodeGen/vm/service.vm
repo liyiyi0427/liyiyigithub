@@ -1,0 +1,58 @@
+package ${packagename}.service;
+
+import java.io.Serializable;
+import java.util.List;
+import java.util.Date;
+import java.util.Map;
+
+import cn.synny.common.core.page.Page;
+import ${packagename}.po.${doname}PO;
+
+public interface ${doname}Service {
+
+	/**
+	 * 查找单个 
+	 * @param id 
+	 * @return ${doname} 
+	 */
+	public ${doname}PO find(Serializable id);
+
+	/**
+	 * 查找所有 
+	 * @return List<${doname}PO> 
+	 */
+	public List<${doname}PO> findAll();
+
+	/**
+	 * 创建 
+	 * @param po
+	 */
+	public void create(${doname}PO po) throws Exception;
+
+	/**
+	 * 修改 
+	 * @param po 
+	 */
+	public void update(${doname}PO po) throws Exception;
+
+	/**
+	 * 删除 
+	 * @param id 
+	 */
+	public void delete(Serializable id) throws Exception;
+
+	/**
+	 * 删除 
+	 * @param ids 
+	 */
+	public void deletes(Serializable[] ids) throws Exception;
+	
+	/**
+	 * 分页查询模板
+	 * 
+	 * @param conds
+	 * @return
+	 */
+	public void listForPage(Map<String, Object> conds, Page<${doname}PO> page);
+
+}

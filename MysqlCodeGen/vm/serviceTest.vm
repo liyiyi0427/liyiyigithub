@@ -1,0 +1,100 @@
+package cn.club.biz.test;
+import java.io.Serializable;
+import java.util.List;
+import java.util.Date;
+import java.util.Map;
+import java.util.HashMap;
+import javax.annotation.Resource;
+
+import org.junit.Assert;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.transaction.TransactionConfiguration;
+
+
+import cn.club.biz.utils.page.Page;
+import ${packagename}.po.${doname}PO;
+import ${packagename}.service.${doname}Service;
+
+/**
+ * @author xuyh
+ * @date 2013-10-16上午10:15:50
+ * @description
+ */
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(locations = { "classpath:spring-service.xml" })
+@TransactionConfiguration(transactionManager = "transactionManager", defaultRollback = true)
+public class ${doname}ServiceTest {
+	@Resource
+	private ${doname}Service ${doname_uncapital}Service;
+	String id = "642b0f145cb445c28e9cde6625bcd9ad";
+	Date now = new Date();
+
+	@Test
+	public void testFind() {
+		${doname}PO po = ${doname_uncapital}Service.find(id);
+		Assert.assertEquals("a", po.getName());
+	}
+
+	@Test
+	public void testFindAll() {
+		List<${doname}PO> all = ${doname_uncapital}Service.findAll();
+		Assert.assertEquals(1, all.size());
+	}
+
+	@Test
+	public void testCreate() {
+		${doname}PO basePO = new ${doname}PO(id, "a", "b", now, now, null, "1");
+		try {
+			${doname_uncapital}Service.create(basePO);
+		} catch (Exception e) {
+			e.printStackTrace();
+			Assert.assertFalse(true);
+		}
+	}
+
+	@Test
+	public void testUpdate() {
+		${doname}PO basePO = ${doname_uncapital}Service.find(id);
+		basePO.setUpdateTime(now);
+		try {
+			${doname_uncapital}Service.update(basePO);
+		} catch (Exception e) {
+			e.printStackTrace();
+			Assert.assertFalse(true);
+		}
+	}
+
+	@Test
+	public void testDelete() {
+		try {
+			${doname_uncapital}Service.delete(id);
+		} catch (Exception e) {
+			e.printStackTrace();
+			Assert.assertFalse(true);
+		}
+	}
+
+	@Test
+	public void testDeletes() {
+		String[] ids = new String[] { id };
+		try {
+			${doname_uncapital}Service.deletes(ids);
+		} catch (Exception e) {
+			e.printStackTrace();
+			Assert.assertFalse(true);
+		}
+	}
+
+	@Test
+	public void testListForPage() {
+		Map<String, Object> reqs = new HashMap<String, Object>();
+		reqs.put("name", "a");
+		reqs.put("title", "b");
+		Page<${doname}PO> page = new Page<${doname}PO>();
+		${doname_uncapital}Service.listForPage(reqs, page);
+		Assert.assertEquals(1, page.getTotal());
+	}
+}
